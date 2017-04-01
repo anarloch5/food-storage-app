@@ -3,6 +3,9 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
+  devServer: {
+      historyApiFallback: true,
+  },
   devtool: 'cheap-module-eval-source-map',
   entry: [
     'eventsource-polyfill', // necessary for hot reloading with IE
@@ -56,6 +59,10 @@ module.exports = {
       },
       {
         test: /\.scss$/,
+        loader: 'style!css!sass'
+      },
+      {
+        test: /\.css$/,
         loader: 'style!css!sass'
       }
     ]
