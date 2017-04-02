@@ -18,7 +18,6 @@ module.exports = class Root extends Component {
       <Provider store={store}>
         <div>
           <App />
-
         </div>
       </Provider>
     );

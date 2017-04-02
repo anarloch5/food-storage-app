@@ -13,7 +13,6 @@ import Signup from '../containers/Signup'
  * component to make the Redux store available to the rest of the app.
  */
 
-@firebaseConnect()
 class App extends Component {
   render() {
     return (
@@ -40,9 +39,6 @@ App.propTypes = {
 function mapStateToProps(state) {
   return {
     counter: state.counter,
-    authError: pathToJS(state.firebase, 'authError'),
-    auth: pathToJS(state.firebase, 'auth'),
-    profile: pathToJS(state.firebase, 'profile')
   };
 }
 
