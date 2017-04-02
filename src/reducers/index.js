@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
 import counter from './counter';
+import { firebaseStateReducer } from 'react-redux-firebase'
 
 /**
  * combineReducers is important to understand. As your app might grow in size
@@ -16,6 +17,7 @@ import counter from './counter';
  */
 const rootReducer = combineReducers({
   counter, // you might be used to: counter: counter,
+  firebase: firebaseStateReducer
 });
 
 export default rootReducer;

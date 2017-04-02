@@ -22,7 +22,7 @@ export default class Header extends Component {
             <div>
                 <Navbar color="faded" light toggleable>
                     <NavbarToggler right onClick={this.toggle} />
-                    <NavbarBrand href="/">Food storage</NavbarBrand>
+                    <NavbarBrand tag={Link} to="/">Food storage</NavbarBrand>
                     <Collapse isOpen={this.state.isOpen} navbar>
                         <Nav className="ml-auto" navbar>
                             <NavItem>

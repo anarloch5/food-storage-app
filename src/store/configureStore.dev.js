@@ -3,6 +3,8 @@ import rootReducer from '../reducers';
 import createLogger from 'redux-logger';
 import thunk from 'redux-thunk';
 import DevTools from '../containers/DevTools';
+import { firebaseStateReducer, reactReduxFirebase } from 'react-redux-firebase'
+import { firebaseConfig, firebaseOptions } from './constants'
 
 /**
  * Entirely optional, this tiny library adds some functionality to
@@ -13,6 +15,8 @@ import DevTools from '../containers/DevTools';
 const logger = createLogger();
 
 const finalCreateStore = compose(
+  // Firebase
+  reactReduxFirebase(firebaseConfig, firebaseOptions),
   // Middleware you want to use in development:
   applyMiddleware(logger, thunk),
   // Required! Enable Redux DevTools with the monitors you chose
