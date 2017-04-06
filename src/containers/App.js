@@ -3,10 +3,14 @@ import { bindActionCreators } from 'redux';
 import { firebaseConnect, pathToJS } from 'react-redux-firebase'
 import { connect } from 'react-redux';
 import * as CounterActions from '../actions/CounterActions';
-import { Router, Route, IndexRoute, browserHistory } from 'react-router'
+import { Router, Route, IndexRoute, hashHistory } from 'react-router'
 import AppContainer from '../containers/AppContainer'
 import Homepage from '../containers/Homepage'
 import Signup from '../containers/Signup'
+import Login from '../containers/Login'
+import Dashboard from '../containers/Dashboard'
+import {UserIsAuthenticated, UserIsNotAuthenticated} from '../helpers/route-protections'
+
 /**
  * It is common practice to have a 'Root' container/component require our main App (this one).
  * Again, this is because it serves to wrap the rest of our application with the Provider
@@ -16,10 +20,12 @@ import Signup from '../containers/Signup'
 class App extends Component {
   render() {
     return (
-    <Router history={browserHistory}>
+    <Router history={hashHistory}>
       <Route path='/' component={AppContainer}>
         <IndexRoute component={Homepage}/>
-        <Route path="/signup" component={Signup}/>
+        <Route path="/signup" component={UserIsNotAuthenticated(Signup)} />
+        <Route path="/login"  component={UserIsNotAuthenticated(Login)} />
+        <Route path='/dashboard' component={UserIsAuthenticated(Dashboard)} />
       </Route>
     </Router>
     );
@@ -27,7 +33,6 @@ class App extends Component {
 }
 
 App.propTypes = {
-  counter: PropTypes.number.isRequired,
   actions: PropTypes.object.isRequired
 };
 
@@ -37,8 +42,8 @@ App.propTypes = {
  * object. By mapping it to props, we can pass it to the child component Counter.
  */
 function mapStateToProps(state) {
-  return {
-    counter: state.counter,
+    return {
+    state: state
   };
 }
 

@@ -1,33 +1,21 @@
 import React, { Component, PropTypes } from 'react';
 import { Card, CardHeader, CardText, CardBlock, CardTitle } from 'reactstrap';
-import SignupForm from '../components/SignupForm'
+import LoginForm from '../components/LoginForm'
 import { firebaseConnect, pathToJS } from 'react-redux-firebase'
 import {connect} from "react-redux";
 
-@connect(
-    // Map state to props
-    ({ firebase }) => ({
-        authError: pathToJS(firebase, 'authError'),
-        auth: pathToJS(firebase, 'auth'),
-        profile: pathToJS(firebase, 'profile')
-    })
-)
 @firebaseConnect()
-export default class Signup extends Component {
+export default class Login extends Component {
     constructor(props, context) {
         super(props, context);
     }
 
     render() {
 
-        console.log(this.props)
-
         const handleSubmit = (form) => {
-            this.props.firebase.createUser(form).then(response => {
-                this.props.firebase.login(form).then(
-                    response_login => console.log(response_login)
-                )
-            })
+            this.props.firebase.login(form).then(
+                response_login => console.log(response_login)
+            )
         };
 
         return (
@@ -36,18 +24,18 @@ export default class Signup extends Component {
                     <div className="col-6 text-center">
                         <Card>
                             <CardHeader>
-                                Create free account
+                                Log in
                             </CardHeader>
                             <CardBlock>
                                 <CardTitle>
-                                    Sign up
+                                    Login
                                 </CardTitle>
                                 <CardText>
-                                    No more outdated food in your kitchen
+                                    to existing account
                                 </CardText>
-                                    <div className="text-left">
-                                        <SignupForm onSubmit={handleSubmit}/>
-                                    </div>
+                                <div className="text-left">
+                                    <LoginForm onSubmit={handleSubmit}/>
+                                </div>
                             </CardBlock>
                         </Card>
                     </div>
