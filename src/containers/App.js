@@ -17,16 +17,21 @@ import {UserIsAuthenticated, UserIsNotAuthenticated} from '../helpers/route-prot
  * component to make the Redux store available to the rest of the app.
  */
 
+const routes = (
+    <Route path='/' component={AppContainer}>
+      <IndexRoute component={Homepage}/>
+      <Route path="/signup" component={UserIsNotAuthenticated(Signup)} />
+      <Route path="/login"  component={UserIsNotAuthenticated(Login)} />
+      <Route path='/dashboard' component={UserIsAuthenticated(Dashboard)} />
+    </Route>
+);
+
+
 class App extends Component {
   render() {
     return (
     <Router history={hashHistory}>
-      <Route path='/' component={AppContainer}>
-        <IndexRoute component={Homepage}/>
-        <Route path="/signup" component={UserIsNotAuthenticated(Signup)} />
-        <Route path="/login"  component={UserIsNotAuthenticated(Login)} />
-        <Route path='/dashboard' component={UserIsAuthenticated(Dashboard)} />
-      </Route>
+        {routes}
     </Router>
     );
   }

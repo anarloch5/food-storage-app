@@ -4,6 +4,7 @@ import SignupForm from '../components/SignupForm'
 import { firebaseConnect, pathToJS } from 'react-redux-firebase'
 import {connect} from "react-redux";
 
+@firebaseConnect()
 @connect(
     // Map state to props
     ({ firebase }) => ({
@@ -12,7 +13,6 @@ import {connect} from "react-redux";
         profile: pathToJS(firebase, 'profile')
     })
 )
-@firebaseConnect()
 export default class Signup extends Component {
     constructor(props, context) {
         super(props, context);
@@ -20,12 +20,10 @@ export default class Signup extends Component {
 
     render() {
 
-        console.log(this.props)
-
         const handleSubmit = (form) => {
             this.props.firebase.createUser(form).then(response => {
                 this.props.firebase.login(form).then(
-                    response_login => console.log(response_login)
+                    response_login => hashHistory.replace('/dashboard')
                 )
             })
         };
