@@ -8,7 +8,7 @@ export const UserIsAuthenticated = UserAuthWrapper({
     authSelector: ({ firebase }) => pathToJS(firebase, 'auth'),
     // authenticatingSelector: ({ firebase }) => pathToJS(firebase, 'isInitializing') === true,
     predicate: auth => auth !== null,
-    LoadingComponent: Loading,
+    // LoadingComponent: Loading,
     redirectAction: (newLoc) => (dispatch) => {
         hashHistory.replace(newLoc)
         // routerActions.replace // if using react-router-redux
@@ -24,7 +24,7 @@ export const UserIsNotAuthenticated = UserAuthWrapper({
     wrapperDisplayName: 'UserIsNotAuthenticated',
     allowRedirectBack: false,
     failureRedirectPath: '/dashboard',
-    LoadingComponent: Loading,
+    // LoadingComponent: Loading,
     authSelector: ({ firebase }) => pathToJS(firebase, 'auth'),
     // authenticatingSelector: ({ firebase }) => pathToJS(firebase, 'isInitializing') !== true,
     predicate: auth => auth === null,

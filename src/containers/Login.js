@@ -40,9 +40,8 @@ export default class Login extends Component {
 
     handleSubmit(form) {
         this.props.firebase.login(form).then(
-            response_login => hashHistory.replace('/dashboard'), error => this.openErrorModal()
+            response_login => console.log(response_login), error => this.openErrorModal()
         )
-        console.log(this.props.authError)
     }
 
     render() {

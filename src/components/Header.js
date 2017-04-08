@@ -16,6 +16,7 @@ export default class Header extends Component {
         super(props);
 
         this.toggle = this.toggle.bind(this);
+        this.logout = this.logout.bind(this);
         this.state = {
             isOpen: false,
         };
@@ -54,7 +55,7 @@ export default class Header extends Component {
                             }
                             {isAuthenticated &&
                             <NavItem>
-                                <NavLink onClick={this.logout()}>Logout</NavLink>
+                                <NavLink onClick={this.logout}>Logout</NavLink>
                             </NavItem>
                             }
                         </Nav>
