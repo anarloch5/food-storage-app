@@ -35,12 +35,16 @@ export default class Header extends Component {
 
     render() {
         const isAuthenticated = !isEmpty(this.props.profile);
+        const {displayName} = this.props.profile;
 
         return (
             <div>
                 <Navbar color="faded" light toggleable>
                     <NavbarToggler right onClick={this.toggle} />
-                    <NavbarBrand tag={Link} to="/">Food storage</NavbarBrand>
+                    <NavbarBrand tag={Link} to="/"><strong>Food storage</strong></NavbarBrand>
+                    <NavbarBrand>
+                        <small className="pl-5 text-muted">Welcome, {displayName}!</small>
+                    </NavbarBrand>
                     <Collapse isOpen={this.state.isOpen} navbar>
                         <Nav className="ml-auto" navbar>
                             {!isAuthenticated &&
@@ -54,8 +58,13 @@ export default class Header extends Component {
                             </NavItem>
                             }
                             {isAuthenticated &&
+                                <NavItem>
+                                <NavLink tag={Link} to="/dashboard">My store</NavLink>
+                                </NavItem>
+                            }
+                            {isAuthenticated &&
                             <NavItem>
-                                <NavLink onClick={this.logout}>Logout</NavLink>
+                                <NavLink style={{'cursor': 'pointer'}} onClick={this.logout}>Logout</NavLink>
                             </NavItem>
                             }
                         </Nav>

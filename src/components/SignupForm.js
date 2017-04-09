@@ -13,6 +13,9 @@ const validate = values => {
     if (!values.password) {
         errors.password = 'Required'
     }
+    if (!values.displayName) {
+        errors.displayName = 'Required'
+    }
     return errors
 };
 
@@ -25,6 +28,8 @@ export default class SignupForm extends Component {
 
         return (
             <form onSubmit={this.props.handleSubmit}>
+                <Field name="displayName" id="displayName" type="text" placeholder="Name" component={renderField} />
+                {' '}
                 <Field name="email" id="email" type="text" placeholder="Email" component={renderField} />
                 {' '}
                 <Field name="password" id="password" type="password" placeholder="*****" component={renderField} />

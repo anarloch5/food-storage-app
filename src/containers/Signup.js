@@ -3,6 +3,7 @@ import { Card, CardHeader, CardText, CardBlock, CardTitle } from 'reactstrap';
 import SignupForm from '../components/SignupForm'
 import { firebaseConnect, pathToJS } from 'react-redux-firebase'
 import {connect} from "react-redux";
+import {hashHistory } from 'react-router'
 
 @firebaseConnect()
 @connect(
@@ -16,18 +17,18 @@ import {connect} from "react-redux";
 export default class Signup extends Component {
     constructor(props, context) {
         super(props, context);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    render() {
-
-        const handleSubmit = (form) => {
-            this.props.firebase.createUser(form).then(response => {
-                this.props.firebase.login(form).then(
-                    response_login => hashHistory.replace('/dashboard')
-                )
+    handleSubmit (form) {
+        this.props.firebase.createUser(form).then(() => {
+            this.props.firebase.login(form).then( uid => {
+                this.props.firebase.update('/users/' + uid, {displayName: form.displayName});
             })
-        };
+        })
+    };
 
+    render() {
         return (
             <div className="container pt-5">
                 <div className="row justify-content-center">
@@ -44,7 +45,7 @@ export default class Signup extends Component {
                                     No more outdated food in your kitchen
                                 </CardText>
                                     <div className="text-left">
-                                        <SignupForm onSubmit={handleSubmit}/>
+                                        <SignupForm onSubmit={this.handleSubmit}/>
                                     </div>
                             </CardBlock>
                         </Card>
